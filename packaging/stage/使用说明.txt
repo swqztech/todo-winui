@@ -1,0 +1,7 @@
+墨迹清单（WinUI 版）— 绿色版
+
+双击 墨迹清单-winui.exe 或 启动.bat 运行。
+
+数据：%APPDATA%\todo-winui\todos.json
+
+运行环境：.NET 8 桌面运行时 + Windows App Runtime（见轻图-winui 绿色版说明中的链接）。
