@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MojiTodo (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MojiTodo (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

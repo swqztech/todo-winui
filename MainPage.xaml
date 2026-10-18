@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="MojiTodo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Page.Resources>
+        <SolidColorBrush x:Key="PageBgBrush" Color="#E8EEF6"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#4878C8"/>
+        <SolidColorBrush x:Key="TitleBrush" Color="#1E2834"/>
+        <SolidColorBrush x:Key="SubBrush" Color="#5A6676"/>
+        <SolidColorBrush x:Key="MutedBrush" Color="#788291"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#D2DAE6"/>
+        <SolidColorBrush x:Key="BtnBlueBrush" Color="#4882DC"/>
+    </Page.Resources>
+    <Grid Background="{StaticResource PageBgBrush}" Padding="20,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Spacing="4" Margin="0,0,0,12">
+            <TextBlock Text="INK LIST" FontSize="11" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+            <TextBlock x:Name="TxtDate" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TitleBrush}"/>
+            <TextBlock Text="写下来，划掉，继续。支持导出 / 导入 / 粘贴 Markdown。" Foreground="{StaticResource SubBrush}" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" ColumnSpacing="8" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TxtInput" PlaceholderText="添加待办…" KeyDown="OnInputKeyDown"/>
+            <Button Grid.Column="1" Content="加入" Click="OnAdd" Background="{StaticResource BtnBlueBrush}" Foreground="White" FontWeight="SemiBold"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+                <Button x:Name="BtnAll" Content="全部" Click="OnFilterAll"/>
+                <Button x:Name="BtnActive" Content="未完成" Click="OnFilterActive"/>
+                <Button x:Name="BtnDone" Content="已完成" Click="OnFilterDone"/>
+                <Button Content="导出" Click="OnExport"/>
+                <Button Content="导入" Click="OnImport"/>
+                <Button Content="粘贴导入" Click="OnPaste"/>
+            </StackPanel>
+            <TextBlock x:Name="TxtStats" Grid.Column="1" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center"/>
+        </Grid>
+
+        <Border Grid.Row="3" Background="White" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="4" Margin="0,0,0,10">
+            <ListView x:Name="TaskList" SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:TodoRow" xmlns:local="using:MojiTodo">
+                        <StackPanel Orientation="Horizontal" Spacing="8" Padding="4,2">
+                            <CheckBox IsChecked="{x:Bind Done, Mode=TwoWay}" Checked="OnTaskCheckChanged" Unchecked="OnTaskCheckChanged"/>
+                            <TextBlock Text="{x:Bind Text}" Foreground="{StaticResource TitleBrush}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="8">
+            <Button Content="上移" Click="OnMoveUp"/>
+            <Button Content="下移" Click="OnMoveDown"/>
+            <Button Content="删除" Click="OnDelete"/>
+        </StackPanel>
+    </Grid>
+</Page>
